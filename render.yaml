@@ -6,7 +6,7 @@ services:
     startCommand: gunicorn app:app
     envVars:
       - key: ANA_SUNUCU_URL
-        value: http://ana-sunucu-url:10000
+        value: deneme1-nj20.onrender.com:10000
       - key: API_ANAHTAR
         value: akilli_ev_gizli_anahtar
       - key: EMAIL_KULLANICI
