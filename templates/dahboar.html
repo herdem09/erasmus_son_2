@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akıllı Ev Sistemi - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container-fluid">
+        <header>
+            <h1>Akıllı Ev Kontrol Paneli</h1>
+            <div class="kullanici-bilgi">
+                <span>Hoş geldiniz, {{ session.kullanici_adi }}</span>
+                <a href="{{ url_for('cikis') }}" class="btn-cikis">Çıkış Yap</a>
+            </div>
+        </header>
+        
+        <div class="dashboard">
+            <div class="panel">
+                <h2>Mevcut Durum</h2>
+                <div class="data-container" id="olan-veriler">
+                    <h3>Olan Değerler</h3>
+                    <div class="data-grid">
+                        {% for key, value in veriler.olan.items() %}
+                        <div class="data-item">
+                            <span class="data-label">{{ key }}:</span>
+                            <span class="data-value {% if value is sameas true or value is sameas false %}boolean{% endif %}">
+                                {% if value is sameas true %}
+                                    Açık
+                                {% elif value is sameas false %}
+                                    Kapalı
+                                {% else %}
+                                    {{ value }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <h2>Kontrol Paneli</h2>
+                <div class="data-container">
+                    <h3>Ayarları Değiştir</h3>
+                    <form id="kontrol-form" class="data-grid">
+                        <!-- Kapı -->
+                        <div class="data-item">
+                            <label for="kapi_gelen">Kapı:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="kapi_gelen" name="kapi_gelen" {% if veriler.alinan.kapi_gelen %}checked{% endif %}>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <!-- Ventilatör -->
+                        <div class="data-item">
+                            <label for="vantilator_gelen">Ventilatör:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="vantilator_gelen" name="vantilator_gelen" {% if veriler.alinan.vantilator_gelen %}checked{% endif %}>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <!-- Pencere -->
+                        <div class="data-item">
+                            <label for="pencere_gelen">Pencere:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="pencere_gelen" name="pencere_gelen" {% if veriler.alinan.pencere_gelen %}checked{% endif %}>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <!-- Ampul -->
+                        <div class="data-item">
+                            <label for="ampul_gelen">Ampul:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="ampul_gelen" name="ampul_gelen" {% if veriler.alinan.ampul_gelen %}checked{% endif %}>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <!-- Perde -->
+                        <div class="data-item">
+                            <label for="perde_gelen">Perde:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="perde_gelen" name="perde_gelen" {% if veriler.alinan.perde_gelen %}checked{% endif %}>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <!-- Sıcaklık -->
+                        <div class="data-item">
+                            <label for="sicaklik_gelen">Sıcaklık:</label>
+                            <input type="number" id="sicaklik_gelen" name="sicaklik_gelen" value="{{ veriler.alinan.sicaklik_gelen }}" min="15" max="35" step="0.5">
+                        </div>
+                        
+                        <!-- Sıcaklık Otomatik -->
+                        <div class="data-item">
+                            <label for="sicaklik_oto_gelen">Sıcaklık Otomatik:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="sicaklik_oto_gelen" name="sicaklik_oto_gelen" {% if veriler.alinan.sicaklik_oto_gelen %}checked{% endif %}>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <!-- Işık Otomatik -->
+                        <div class="data-item">
+                            <label for="isik_oto_gelen">Işık Otomatik:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="isik_oto_gelen" name="isik_oto_gelen" {% if veriler.alinan.isik_oto_gelen %}checked{% endif %}>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <!-- Birinci Eşik -->
+                        <div class="data-item">
+                            <label for="birinci_esik_gelen">Birinci Eşik:</label>
+                            <input type="number" id="birinci_esik_gelen" name="birinci_esik_gelen" value="{{ veriler.alinan.birinci_esik_gelen }}" min="15" max="30" step="0.5">
+                        </div>
+                        
+                        <!-- İkinci Eşik -->
+                        <div class="data-item">
+                            <label for="ikinci_esik_gelen">İkinci Eşik:</label>
+                            <input type="number" id="ikinci_esik_gelen" name="ikinci_esik_gelen" value="{{ veriler.alinan.ikinci_esik_gelen }}" min="20" max="35" step="0.5">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" id="kaydet-btn">Değişiklikleri Kaydet</button>
+                            <button type="button" id="yenile-btn">Yenile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bildirim alanı -->
+    <div id="bildirim" class="bildirim">
+        <span id="bildirim-mesaj"></span>
+        <span class="kapat-btn" onclick="this.parentElement.style.display='none'">&times;</span>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
