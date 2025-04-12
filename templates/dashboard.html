@@ -6,10 +6,12 @@
     <title>Akıllı Ev Sistemi - Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
-        /* Değerlerin yazı rengini mavi yap */
+        /* Değer yazılarını mavi yap */
         .data-value {
-            color: #0066cc; /* Koyu mavi renk */
-            font-weight: bold;
+            padding: 8px;
+            background-color: #f0f0f0;
+            border-radius: var(--border-radius);
+            color: #4285f4; /* Değerleri mavi yapar */
         }
     </style>
 </head>
@@ -61,9 +63,9 @@
                             </label>
                         </div>
                         
-                        <!-- Ventilatör -->
+                        <!-- Vantilatör (düzeltildi) -->
                         <div class="data-item">
-                            <label for="vantilator_gelen">Ventilatör:</label>
+                            <label for="vantilator_gelen">Vantilatör:</label>
                             <label class="switch">
                                 <input type="checkbox" id="vantilator_gelen" name="vantilator_gelen" {% if veriler.alinan.vantilator_gelen %}checked{% endif %}>
                                 <span class="slider"></span>
@@ -100,7 +102,7 @@
                         <!-- Sıcaklık -->
                         <div class="data-item">
                             <label for="sicaklik_gelen">Sıcaklık:</label>
-                            <input type="number" id="sicaklik_gelen" name="sicaklik_gelen" value="{{ veriler.alinan.sicaklik_gelen }}" min="15" max="35" step="0.5" class="data-value">
+                            <input type="number" id="sicaklik_gelen" name="sicaklik_gelen" value="{{ veriler.alinan.sicaklik_gelen }}" min="15" max="35" step="0.5">
                         </div>
                         
                         <!-- Sıcaklık Otomatik -->
@@ -124,13 +126,13 @@
                         <!-- Birinci Eşik -->
                         <div class="data-item">
                             <label for="birinci_esik_gelen">Birinci Eşik:</label>
-                            <input type="number" id="birinci_esik_gelen" name="birinci_esik_gelen" value="{{ veriler.alinan.birinci_esik_gelen }}" min="15" max="30" step="0.5" class="data-value">
+                            <input type="number" id="birinci_esik_gelen" name="birinci_esik_gelen" value="{{ veriler.alinan.birinci_esik_gelen }}" min="15" max="30" step="0.5">
                         </div>
                         
                         <!-- İkinci Eşik -->
                         <div class="data-item">
                             <label for="ikinci_esik_gelen">İkinci Eşik:</label>
-                            <input type="number" id="ikinci_esik_gelen" name="ikinci_esik_gelen" value="{{ veriler.alinan.ikinci_esik_gelen }}" min="20" max="35" step="0.5" class="data-value">
+                            <input type="number" id="ikinci_esik_gelen" name="ikinci_esik_gelen" value="{{ veriler.alinan.ikinci_esik_gelen }}" min="20" max="35" step="0.5">
                         </div>
                         
                         <div class="form-actions">
