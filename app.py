@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 # Ana sunucu URL'si
-ANA_SUNUCU_URL = "deneme1-nj20.onrender.com"  # Ana sunucunun URL'sini buraya ekleyin
+ANA_SUNUCU_URL = "https://deneme1-nj20.onrender.com"  # Ana sunucunun URL'sini buraya ekleyin
 
 # API Bridge için şifre anahtarı
 API_ANAHTAR = "akilli_ev_gizli_anahtar"
