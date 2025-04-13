@@ -182,7 +182,7 @@ header {
     display: inline-block;
     padding: 5px 10px;
     border-radius: 20px;
-    color: white;
+    color: var(--primary-color);
     font-size: 14px;
 }
 
